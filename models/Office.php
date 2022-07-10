@@ -48,6 +48,7 @@ class Office extends \yii\db\ActiveRecord
             'OFFICE_ID' => 'Office ID',
             'OFFICE_NAME' => 'Office Name',
             'OFFICE_LOCATION' => 'Region Code',
+            //'regionName' => 'Region Name',
         ];
     }
 
@@ -71,5 +72,9 @@ class Office extends \yii\db\ActiveRecord
         return $this->hasMany(Employee::className(), ['OFFICE_ID' => 'OFFICE_ID']);
     }
 
+
+    public function getRegionName(){
+        return $this->region->region_m;
+    }
 
 }

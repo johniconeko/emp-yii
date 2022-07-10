@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Office;
+use app\models\Region;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -78,6 +79,7 @@ class OfficeController extends Controller
     public function actionCreate()
     {
         $model = new Office();
+        $regions = Region::find()->all();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -89,6 +91,7 @@ class OfficeController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'regions' => $regions,
         ]);
     }
 
@@ -102,6 +105,7 @@ class OfficeController extends Controller
     public function actionUpdate($OFFICE_ID)
     {
         $model = $this->findModel($OFFICE_ID);
+        $regions = Region::find()->all();
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
             return $this->redirect(['view', 'OFFICE_ID' => $model->OFFICE_ID]);
@@ -109,6 +113,7 @@ class OfficeController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'regions' => $regions,
         ]);
     }
 
