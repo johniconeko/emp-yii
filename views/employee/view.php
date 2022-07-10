@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Employee */
@@ -37,5 +38,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'OFFICE_ID',
         ],
     ]) ?>
+
+    <h3>Children</h3>
+
+    <?= GridView::widget([
+        'dataProvider' => $model->familyDataProvider,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'CHILD_ID',
+            'child.FIRST_NAME',
+            'child.MIDDLE_NAME',
+            'child.LAST_NAME',
+        ],
+    ]); ?>
 
 </div>

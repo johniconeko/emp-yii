@@ -52,7 +52,7 @@ class Family extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCHILD()
+    public function getChild()
     {
         return $this->hasOne(Child::className(), ['CHILD_ID' => 'CHILD_ID']);
     }

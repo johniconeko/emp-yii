@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "{{%tbl_employee}}".
@@ -72,7 +73,7 @@ class Employee extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFamilies()
+    public function getChildren()
     {
         return $this->hasMany(Family::className(), ['PARENT_ID' => 'EMP_ID']);
     }
@@ -82,8 +83,28 @@ class Employee extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
+
+
     public function getUser()
     {
         return $this->hasOne(User::className(), ['USER_ID' => 'EMP_ID']);
+    }
+
+    public function getFamilyDataProvider(){
+        $dataProvider = new ActiveDataProvider([
+            'query' => Family::find()->where(['PARENT_ID'=>$this->EMP_ID]),
+            /*
+            'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'CHILD_ID' => SORT_DESC,
+                ]
+            ],
+            */
+        ]);
+
+        return $dataProvider;
     }
 }
