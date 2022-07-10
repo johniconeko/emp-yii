@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Child;
+use app\models\Family;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -75,13 +76,20 @@ class ChildController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
-    public function actionCreate()
+    public function actionCreate($PARENT_ID)
     {
         $model = new Child();
+        $family = new Family();
+        
 
         if ($this->request->isPost) {
+     
             if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'CHILD_ID' => $model->CHILD_ID]);
+
+                $family->PARENT_ID = $PARENT_ID;
+                $family->CHILD_ID = $model->CHILD_ID;
+                $family->save();
+                return $this->redirect(['..\employee\view', 'EMP_ID' => $PARENT_ID]);
             }
         } else {
             $model->loadDefaultValues();
@@ -99,12 +107,12 @@ class ChildController extends Controller
      * @return string|\yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($CHILD_ID)
+    public function actionUpdate($CHILD_ID, $PARENT_ID)
     {
         $model = $this->findModel($CHILD_ID);
 
         if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'CHILD_ID' => $model->CHILD_ID]);
+            return $this->redirect(['..\employee\view', 'EMP_ID' => $PARENT_ID]);
         }
 
         return $this->render('update', [
@@ -119,11 +127,11 @@ class ChildController extends Controller
      * @return \yii\web\Response
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionDelete($CHILD_ID)
+    public function actionDelete($CHILD_ID, $PARENT_ID)
     {
         $this->findModel($CHILD_ID)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['..\employee\view', 'EMP_ID'=>$PARENT_ID]);
     }
 
     /**

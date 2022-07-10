@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <div class="form-group field-child-birth_date required">
         <label class="control-label" for="child-birth_date">Birth Date</label>
-        <input type="date" id="child-BIRTH_DATE" value='<?= $model->BIRTH_DATE ?>' class="form-control" name="Child[BIRHT_DATE]" aria-required="true">
+        <input type="date" id="child-BIRTH_DATE" value='<?= $model->BIRTH_DATE ?>' class="form-control" name="Child[BIRTH_DATE]" aria-required="true">
         <div class="help-block"></div>
     </div>
 

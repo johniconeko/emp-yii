@@ -2,7 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Url;
+use yii\grid\ActionColumn;
 use yii\grid\GridView;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Employee */
@@ -40,6 +43,9 @@ $this->params['breadcrumbs'][] = $this->title;
     ]) ?>
 
     <h3>Children</h3>
+    <p>
+        <?= Html::a('Add Child', ['..\child\create?PARENT_ID='.$model->EMP_ID], ['class' => 'btn btn-success']) ?>
+    </p>
 
     <?= GridView::widget([
         'dataProvider' => $model->familyDataProvider,
@@ -50,6 +56,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'child.FIRST_NAME',
             'child.MIDDLE_NAME',
             'child.LAST_NAME',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action,  $model, $key, $index, $column) {
+                    return Url::toRoute(["child/".$action, 'CHILD_ID' => $model->CHILD_ID, 'PARENT_ID'=>$model->PARENT_ID]);
+                 }
+            ],
         ],
     ]); ?>
 
