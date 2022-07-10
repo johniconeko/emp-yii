@@ -62,7 +62,7 @@ class Family extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getPARENT()
+    public function getParent()
     {
         return $this->hasOne(Employee::className(), ['EMP_ID' => 'PARENT_ID']);
     }

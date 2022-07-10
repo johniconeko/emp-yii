@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "{{%tbl_child}}".
@@ -56,8 +57,26 @@ class Child extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getTblFamilies()
+    public function getParents()
     {
         return $this->hasMany(Family::className(), ['CHILD_ID' => 'CHILD_ID']);
+    }
+
+    public function getFamilyDataProvider(){
+        $dataProvider = new ActiveDataProvider([
+            'query' => Family::find()->where(['CHILD_ID'=>$this->CHILD_ID]),
+            /*
+            'pagination' => [
+                'pageSize' => 50
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'CHILD_ID' => SORT_DESC,
+                ]
+            ],
+            */
+        ]);
+
+        return $dataProvider;
     }
 }
