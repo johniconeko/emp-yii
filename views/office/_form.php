@@ -16,9 +16,7 @@ use yii\helpers\ArrayHelper;
     <?= $form->field($model, 'OFFICE_NAME')->textInput(['maxlength' => true]) ?>
 
     <?php
-
-
-    
+ 
     $listData=ArrayHelper::map($regions,'region_c','region_m');
 
     echo $form->field($model, 'OFFICE_LOCATION')->dropDownList(

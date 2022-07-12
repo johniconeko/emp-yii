@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Employee */
@@ -20,7 +21,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'BIRTH_DATE')->textInput() ?>
 
-    <?= $form->field($model, 'OFFICE_ID')->textInput() ?>
+    <?php
+ 
+    $listData=ArrayHelper::map($office,'OFFICE_ID','OFFICE_NAME');
+
+    echo $form->field($model, 'OFFICE_ID')->dropDownList(
+            $listData,
+            ['prompt'=>'Select...']
+            );
+    ?>
+    
+    <?php //<?= $form->field($model, 'OFFICE_ID')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
