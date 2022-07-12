@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\Office;
 use app\models\Employee;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
@@ -78,6 +79,7 @@ class EmployeeController extends Controller
     public function actionCreate()
     {
         $model = new Employee();
+        $office = office::find()->all();
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
@@ -89,6 +91,7 @@ class EmployeeController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'office' => $office,
         ]);
     }
 
